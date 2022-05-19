@@ -1,0 +1,104 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# https://www.playframework.com/documentation/latest/ScalaRouting
+# ~~~~
+
+# An example controller showing a sample home page
+### NoDocs ###
+GET     /                           controllers.HomeController.index()
+
+# Map static resources from the /public folder to the /assets URL path
+### NoDocs ###
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+
+###
+#   summary: Get all Movies
+#   responses:
+#       200:
+#           description: success
+#           content:
+#               application/json:
+#                   schema:
+#                       $ref: '#/components/schemas/models.Movie'
+###
+GET     /movies                     controllers.MoviesController.getAll()
+
+###
+#   summary: Get a Movie by ID
+#   responses:
+#       200:
+#           description: success
+#           content:
+#               application/json:
+#                   schema:
+#                       $ref: '#/components/schemas/models.Movie'
+###
+GET     /movies/id/:movieId            controllers.MoviesController.getMovieById(movieId: String)
+
+###
+#   summary: Get a Movie by Name
+#   responses:
+#       200:
+#           description: success
+#           content:
+#               application/json:
+#                   schema:
+#                       $ref: '#/components/schemas/models.Movie'
+###
+GET     /movies/title/:title             controllers.MoviesController.getMovieByTitle(title: String)
+
+###
+#  parameters:
+#    - name: body
+#      schema:
+#        $ref: '#/components/schemas/models.Movie'
+###
+POST    /movies                      controllers.MoviesController.addMovie()
+
+###
+#  parameters:
+#    - name: body
+#      schema:
+#        $ref: '#/components/schemas/models.Movie'
+###
+PUT   /movies/:movieId              controllers.MoviesController.rateMovie(movieId: String)
+
+###
+#  parameters:
+#    - name: body
+#      schema:
+#        $ref: '#/components/schemas/models.Movie'
+###
+DELETE  /movies/:movieId             controllers.MoviesController.deleteMovie(movieId:String)
+
+
+###
+#   summary: Get a IMDB Movie Info by ID from IMDb API
+#   responses:
+#       200:
+#           description: success
+#           content:
+#               application/json:
+#                   schema:
+#                       $ref: '#/components/schemas/models.Movie'
+###
+GET  /imdbEnq/id/:movieId          controllers.IMDbController.getMovieByID(movieId:String)
+
+###
+#   summary: Get IMDB Movie Info List by Name from IMDb API
+#   responses:
+#       200:
+#           description: success
+#           content:
+#               application/json:
+#                   schema:
+#                       $ref: '#/components/schemas/models.Movie'
+###
+GET  /imdbEnq/name/:movieName       controllers.IMDbController.getMoviesByName(movieName:String)
+
+### NoDocs ###
+GET   /docs/swagger-ui/*file        controllers.Assets.at(path:String="/public/lib/swagger-ui", file:String)
+
+### NoDocs ###
+GET   /assets/*file                 controllers.Assets.versioned(path="/public", file: Asset)
+
